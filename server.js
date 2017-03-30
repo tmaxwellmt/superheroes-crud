@@ -41,6 +41,16 @@ app.post('/superheroes', function(req, res){
   });
 })
 
+app.get('/superheroes/:superhero_id', function(req, res){
+  Superhero.findById(req.params.superhero_id, function(err, data) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.json(data);
+    }
+  })
+});
+
 var server = app.listen(3000, function () {
   console.log('server is running');
 });
