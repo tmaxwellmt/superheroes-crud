@@ -1,5 +1,5 @@
 var express = require('express');
-var Superhero = require('./models/superhero');
+var Villain = require('./models/villain');
 var app = express();
 var bodyParser = require('body-parser');
 
@@ -7,14 +7,14 @@ var mongoose = require('mongoose');
 
 //required to connect to our local database.
 //it will look for"/" or create a db called superheroes.
-mongoose.connect('mongodb://localhost/superheroes');
+mongoose.connect('mongodb://localhost/villain');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/superheroes', function(req, res) {
+app.get('/villain', function(req, res) {
 
-  Superhero.find(function(err, data) {
+  Villain.find(function(err, data) {
     if(err){
       console.log(err);
     } else {
@@ -24,25 +24,24 @@ app.get('/superheroes', function(req, res) {
 
 });
 
-app.post('/superheroes', function(req, res){
-  var newSuper = new Superhero({
+app.post('/villain', function(req, res){
+  var newVillain = new Villain({
     name: req.body.name,
     superPower: req.body.superPower,
-    universe: req.body.universe,
     evil: req.body.evil,
-    rank: req.body.rank,
+    nemesis: req.body.nemesis,
   });
-  newSuper.save(function(err, sh) {
+  newVillain.save(function(err, vil) {
     if (err) {
       console.log(err);
     } else {
-      res.json(sh)
+      res.json(vil)
     }
   });
 })
 
-app.get('/superheroes/:superhero_id', function(req, res){
-  Superhero.findById(req.params.superhero_id, function(err, data) {
+app.get('/villain/:villain_id', function(req, res){
+  Villain.findById(req.params.villain_id, function(err, data) {
     if (err) {
       console.log(err);
     } else {
@@ -51,16 +50,16 @@ app.get('/superheroes/:superhero_id', function(req, res){
   })
 });
 
-app.delete('/superheroes/:superhero_id', function(req, res) {
-  Superhero.remove({_id: req.params.superhero_id}, function(err) {
+app.delete('/villain/:villain_id', function(req, res) {
+  Villain.remove({_id: req.params.Villain_id}, function(err) {
     if (err) {
       console.log(err);
     } else {
-      res.send("Superhero deleted");
+      res.send("Villain deleted");
     }
   })
 });
 
-var server = app.listen(3000, function () {
+var villserver = app.listen(3000, function () {
   console.log('server is running');
 });
