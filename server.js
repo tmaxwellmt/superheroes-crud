@@ -1,4 +1,5 @@
 var express = require('express');
+var path = require('path');
 var Superhero = require('./models/superhero');
 var app = express();
 var bodyParser = require('body-parser');
@@ -11,6 +12,21 @@ mongoose.connect('mongodb://localhost/superheroes');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+app.get('/', function (req, res) {
+  res.render('index')
+});
+
+app.get('/goodGuys', function (req, res) {
+  res.render('goodGuys')
+});
+
+app.get('/badGuys', function (req, res) {
+  res.render('badGuys')
+});
 
 app.get('/superheroes', function(req, res) {
 
