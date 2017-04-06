@@ -10,20 +10,17 @@
   </head>
   <body>
     <div class="container">
-      <div class= "jumbotron">
-        <div class="row">
-          <div class="col-md-6">.col-md-6</div>
-            <h2>Hello goodGuys!</h2>
-            <img class="robo-uni" src="http://funnyasduck.net/wp-content/uploads/2013/01/funny-robocop-unicorn-spoof-movie-poster-pics.jpg" class="img-responsive" alt="Responsive image">
-            <div id="sample">
-              <h3>{{title}}</h3>
-              <ul v-for="n in numbers">
-                <li>{{n}}</li>
+        <div id="component">
+          <div v-for="hero in heros" class="hero-panel">
+            <h3>{{hero.name}}</h3>
+            <img class="hero-image" :src="hero.img" />
+              <ul>
+                <li>{{hero.universe}}</li>
+                <li>{{hero.superPower}}</li>
+                <li>{{hero.evil}}</li>
               </ul>
-                <h3>{{heros[0].name}}</h3>
-            </div>
-            <a href="/bears" class="btn btn-primary">Show me some Superheros.</a>
           </div>
+        <a href="/superheroes" class="btn btn-primary">Show me some Superheros.</a>
       </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>

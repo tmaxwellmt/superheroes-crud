@@ -52,6 +52,7 @@ app.put('/api/superheroes/:superhero_id', function (req, res) {
     hero.universe = req.body.universe ? req.body.universe : hero.universe;
     hero.evil = req.body.evil ? req.body.evil : hero.evil;
     hero.rank = req.body.rank ? req.body.rank : hero.rank;
+    hero.img = req.body.img ? req.body.img : hero.img;
 
     hero.save(function(e) {
       if (e) {
@@ -70,6 +71,7 @@ app.post('/api/superheroes', function(req, res){
     universe: req.body.universe,
     evil: req.body.evil,
     rank: req.body.rank,
+    img: req.body.img,
   });
   newSuper.save(function(err, sh) {
     if (err) {

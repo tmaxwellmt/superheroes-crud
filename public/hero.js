@@ -1,11 +1,12 @@
 console.log("Hello from Hero JS");
 
-var sampleVue = new Vue({
-  el: '#sample',
+var componentVue = new Vue({
+  el: '#component',
   data: {
     numbers: [1,2,3,4,5,6],
     title: "Hello from Sample",
-    heros: []
+    heros: [],
+    hero: {}
   },
 });
 //makes a git request to superheros
@@ -15,5 +16,6 @@ fetch('/api/superheroes')
   })
   .then(function (data) {
     console.table(data);
-    sampleVue.heros = data
+      componentVue.hero = data[2]
+      componentVue.heros = data;
   })
