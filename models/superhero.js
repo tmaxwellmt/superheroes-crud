@@ -4,7 +4,7 @@ var SuperheroSchema = new mongoose.Schema({
   name: String,
   superPower: String,
   universe: String,
-  evil: Boolean,
+  evil: String,
   rank: Number
 });
 

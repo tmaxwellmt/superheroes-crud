@@ -9,7 +9,7 @@ var sampleVue = new Vue({
   },
 });
 //makes a git request to superheros
-fetch('/superheroes')
+fetch('/api/superheroes')
   .then(function (blob) {
     return blob.json();
   })

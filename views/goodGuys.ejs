@@ -11,17 +11,20 @@
   <body>
     <div class="container">
       <div class= "jumbotron">
-        <h2>Hello goodGuys!</h2>
-        <div id="sample">
-          <h3>{{title}}</h3>
-          <ul v-for="n in numbers">
-            <li>{{n}}</li>
-          </ul>
-            <h3>{{heros[0].name}}</h3>
-        </div>
-        <a href="/bears" class="btn btn-primary">Show me some Superheros.</a>
+        <div class="row">
+          <div class="col-md-6">.col-md-6</div>
+            <h2>Hello goodGuys!</h2>
+            <img class="robo-uni" src="http://funnyasduck.net/wp-content/uploads/2013/01/funny-robocop-unicorn-spoof-movie-poster-pics.jpg" class="img-responsive" alt="Responsive image">
+            <div id="sample">
+              <h3>{{title}}</h3>
+              <ul v-for="n in numbers">
+                <li>{{n}}</li>
+              </ul>
+                <h3>{{heros[0].name}}</h3>
+            </div>
+            <a href="/bears" class="btn btn-primary">Show me some Superheros.</a>
+          </div>
       </div>
-      <img src="http://funnyasduck.net/wp-content/uploads/2013/01/funny-robocop-unicorn-spoof-movie-poster-pics.jpg" class="img-responsive" alt="Responsive image">
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>

@@ -30,7 +30,7 @@ app.get('/badGuys', function (req, res) {
   res.render('badGuys')
 });
 
-app.get('/superheroes', function(req, res) {
+app.get('/api/superheroes', function(req, res) {
 
   Superhero.find(function(err, data) {
     if(err){
@@ -42,7 +42,28 @@ app.get('/superheroes', function(req, res) {
 
 });
 
-app.post('/superheroes', function(req, res){
+app.put('/api/superheroes/:superhero_id', function (req, res) {
+  Superhero.findById( req.params.superhero_id, function (err, hero) {
+
+      // if (!hero) return res.status(404).send(err, "Can not find Superhero");
+
+    hero.name = req.body.name ? req.body.name : hero.name;
+    hero.superPower = req.body.superPower ? req.body.superPower : hero.superPower;
+    hero.universe = req.body.universe ? req.body.universe : hero.universe;
+    hero.evil = req.body.evil ? req.body.evil : hero.evil;
+    hero.rank = req.body.rank ? req.body.rank : hero.rank;
+
+    hero.save(function(e) {
+      if (e) {
+        res.status(500).send(e)
+      } else {
+        res.json(hero);
+      }
+    })
+  })
+})
+
+app.post('/api/superheroes', function(req, res){
   var newSuper = new Superhero({
     name: req.body.name,
     superPower: req.body.superPower,
@@ -59,7 +80,7 @@ app.post('/superheroes', function(req, res){
   });
 })
 
-app.get('/superheroes/:superhero_id', function(req, res){
+app.get('/api/superheroes/:superhero_id', function(req, res){
   Superhero.findById(req.params.superhero_id, function(err, data) {
     if (err) {
       console.log(err);
