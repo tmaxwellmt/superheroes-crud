@@ -1,6 +1,7 @@
 var express = require('express');
 var path = require('path');
 var Superhero = require('./models/superhero');
+var Villain = require('./models/villain');
 var app = express();
 var bodyParser = require('body-parser');
 
@@ -42,18 +43,24 @@ app.get('/api/superheroes', function(req, res) {
 
 });
 
+app.get('/api/villains', function(req, res) {
+
+  Villain.find(function(err, data) {
+    if(err){
+      console.log(err);
+    } else {
+      res.json(data);
+    }
+  });
+
+});
+
 app.put('/api/superheroes/:superhero_id', function (req, res) {
   Superhero.findById( req.params.superhero_id, function (err, hero) {
 
-      // if (!hero) return res.status(404).send(err, "Can not find Superhero");
-
-    hero.name = req.body.name ? req.body.name : hero.name;
-    hero.superPower = req.body.superPower ? req.body.superPower : hero.superPower;
-    hero.universe = req.body.universe ? req.body.universe : hero.universe;
-    hero.evil = req.body.evil ? req.body.evil : hero.evil;
-    hero.rank = req.body.rank ? req.body.rank : hero.rank;
-    hero.img = req.body.img ? req.body.img : hero.img;
-
+    if (!hero) return res.status(404);
+    hero.loadPower(req.body.superPower);
+    hero.loadData(req.body);
     hero.save(function(e) {
       if (e) {
         res.status(500).send(e)
@@ -62,22 +69,49 @@ app.put('/api/superheroes/:superhero_id', function (req, res) {
       }
     })
   })
+});
+
+app.put('/api/villains/:villain_id', function (req, res) {
+  Villain.findById( req.params.villain_id, function (err, villain) {
+
+    if (!villain) return res.status(404);
+    villain.loadPower(req.body.superPower);
+    villain.loadData(req.body);
+    villain.save(function(e) {
+      if (e) {
+        res.status(500).send(e)
+      } else {
+        res.json(villain);
+      }
+    })
+  })
 })
 
+
 app.post('/api/superheroes', function(req, res){
-  var newSuper = new Superhero({
-    name: req.body.name,
-    superPower: req.body.superPower,
-    universe: req.body.universe,
-    evil: req.body.evil,
-    rank: req.body.rank,
-    img: req.body.img,
-  });
+  var newSuper = new Superhero();
+
+  newSuper.loadData(req.body);
+
   newSuper.save(function(err, sh) {
     if (err) {
       console.log(err);
     } else {
       res.json(sh)
+    }
+  });
+})
+
+app.post('/api/villains', function(req, res){
+  var newVillain = new Villain();
+
+  newVillain.loadData(req.body);
+
+  newVillain.save(function(err, vil) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.json(vil)
     }
   });
 })
@@ -92,12 +126,32 @@ app.get('/api/superheroes/:superhero_id', function(req, res){
   })
 });
 
+app.get('/villains/:villain_id', function(req, res){
+  Villain.findById(req.params.villain_id, function(err, data) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.json(data);
+    }
+  })
+});
+
 app.delete('/superheroes/:superhero_id', function(req, res) {
   Superhero.remove({_id: req.params.superhero_id}, function(err) {
     if (err) {
       console.log(err);
     } else {
       res.send("Superhero deleted");
+    }
+  })
+});
+
+app.delete('/villains/:villain_id', function(req, res) {
+  Villain.remove({_id: req.params.villain_id}, function(err) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send("Villain deleted");
     }
   })
 });

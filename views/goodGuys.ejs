@@ -4,23 +4,34 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Superhero Site</title>
+    <title>Superhero Page</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
     <div class="container">
+      <div class="nav-bar">
+        <ul class="nav-bar">
+          <li><a href="/">Home</a></li>
+          <li><a href="/goodGuys">Heroes</a></li>
+          <li><a href="/badGuys">Villains</a></li>
+        </ul>
+      </div>
+      <div class="center-block">
+        <h1>Meet The A-Team</h1>
+        <img src="http://maxwell-creative.com/wp-content/uploads/2017/04/good-guys-header.jpg" class="img-good" alt="Responsive image">
+      </div>
         <div id="component">
-          <div v-for="hero in heros" class="hero-panel">
-            <h3>{{hero.name}}</h3>
+          <div v-for="hero in heros" class="hero-panel" :id="hero._id">
+            <h3 class="hero-name">{{hero.name}}</h3>
             <img class="hero-image" :src="hero.img" />
-              <ul>
-                <li>{{hero.universe}}</li>
-                <li>{{hero.superPower}}</li>
-                <li>{{hero.evil}}</li>
-              </ul>
+              <ol>
+                <h6>{{hero.superPower}}</h6>
+                <h6>{{hero.universe}}</h6>
+                <h6>{{hero.evil}}</h6>
+              </ol>
           </div>
-        <a href="/superheroes" class="btn btn-primary">Show me some Superheros.</a>
+        <!--<a href="/superheroes" class="btn btn-primary">Show me some Superheros.</a>-->
       </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>

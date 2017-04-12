@@ -4,7 +4,7 @@ var componentVue = new Vue({
   el: '#component',
   data: {
     numbers: [1,2,3,4,5,6],
-    title: "Hello from Sample",
+    title: "Hello from the heroes",
     heros: [],
     hero: {}
   },

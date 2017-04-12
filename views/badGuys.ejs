@@ -4,20 +4,39 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Superhero Site</title>
+    <title>Villlian Page</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
     <div class="container">
-      <div class= "jumbotron">
-        <h2>Hello badGuys!</h2>
-        <a href="/bears" class="btn btn-primary">Show me some Badass Mo Fo's.</a>
+      <div class="nav-bar">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/goodGuys">Heroes</a></li>
+          <li><a href="/badGuys">Villains</a></li>
+        </ul>
+      </div>
+      <div class="center-block">
+        <h1>Meet The Bad Guys</h1>
+        <img src="http://maxwell-creative.com/wp-content/uploads/2017/04/bad-guys-head.jpg" class="img-bad" alt="Responsive image">
+      </div>
+        <div id="component">
+            <div v-for="villain in villains" class="villain-panel" :id="villain._id">
+              <h3 class="villain-name">{{villain.name}}</h3>
+              <img class="villain-image" :src="villain.img" />
+              <ol>
+                <h6>{{villain.superPower}}</h6>
+                <h6>{{villain.universe}}</h6>
+                <h6>{{villain.evil}}</h6>
+              </ol>
+            </div>
+          </div>
       </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/vue"></script>
-    <script type="text/javascript"></script>
+    <script src="anti-hero.js"></script>
   </body>
 </html>
