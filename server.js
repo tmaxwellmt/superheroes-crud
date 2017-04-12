@@ -4,6 +4,7 @@ var Superhero = require('./models/superhero');
 var Villain = require('./models/villain');
 var app = express();
 var bodyParser = require('body-parser');
+var heroRoutes = require('./routes/superheroes')
 
 var mongoose = require('mongoose');
 
@@ -31,17 +32,6 @@ app.get('/badGuys', function (req, res) {
   res.render('badGuys')
 });
 
-app.get('/api/superheroes', function(req, res) {
-
-  Superhero.find(function(err, data) {
-    if(err){
-      console.log(err);
-    } else {
-      res.json(data);
-    }
-  });
-
-});
 
 app.get('/api/villains', function(req, res) {
 
@@ -53,22 +43,6 @@ app.get('/api/villains', function(req, res) {
     }
   });
 
-});
-
-app.put('/api/superheroes/:superhero_id', function (req, res) {
-  Superhero.findById( req.params.superhero_id, function (err, hero) {
-
-    if (!hero) return res.status(404);
-    hero.loadPower(req.body.superPower);
-    hero.loadData(req.body);
-    hero.save(function(e) {
-      if (e) {
-        res.status(500).send(e)
-      } else {
-        res.json(hero);
-      }
-    })
-  })
 });
 
 app.put('/api/villains/:villain_id', function (req, res) {
@@ -87,21 +61,6 @@ app.put('/api/villains/:villain_id', function (req, res) {
   })
 })
 
-
-app.post('/api/superheroes', function(req, res){
-  var newSuper = new Superhero();
-
-  newSuper.loadData(req.body);
-
-  newSuper.save(function(err, sh) {
-    if (err) {
-      console.log(err);
-    } else {
-      res.json(sh)
-    }
-  });
-})
-
 app.post('/api/villains', function(req, res){
   var newVillain = new Villain();
 
@@ -116,32 +75,12 @@ app.post('/api/villains', function(req, res){
   });
 })
 
-app.get('/api/superheroes/:superhero_id', function(req, res){
-  Superhero.findById(req.params.superhero_id, function(err, data) {
-    if (err) {
-      console.log(err);
-    } else {
-      res.json(data);
-    }
-  })
-});
-
 app.get('/villains/:villain_id', function(req, res){
   Villain.findById(req.params.villain_id, function(err, data) {
     if (err) {
       console.log(err);
     } else {
       res.json(data);
-    }
-  })
-});
-
-app.delete('/superheroes/:superhero_id', function(req, res) {
-  Superhero.remove({_id: req.params.superhero_id}, function(err) {
-    if (err) {
-      console.log(err);
-    } else {
-      res.send("Superhero deleted");
     }
   })
 });
@@ -155,6 +94,8 @@ app.delete('/villains/:villain_id', function(req, res) {
     }
   })
 });
+
+app.use('/api/superheroes', heroRoutes)
 
 var server = app.listen(3000, function () {
   console.log('server is running');
