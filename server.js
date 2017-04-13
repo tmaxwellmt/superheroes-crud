@@ -4,7 +4,8 @@ var Superhero = require('./models/superhero');
 var Villain = require('./models/villain');
 var app = express();
 var bodyParser = require('body-parser');
-var heroRoutes = require('./routes/superheroes')
+var heroRoutes = require('./routes/superheroes');
+var villainRoutes = require('./routes/villains');
 
 var mongoose = require('mongoose');
 
@@ -32,70 +33,9 @@ app.get('/badGuys', function (req, res) {
   res.render('badGuys')
 });
 
-
-app.get('/api/villains', function(req, res) {
-
-  Villain.find(function(err, data) {
-    if(err){
-      console.log(err);
-    } else {
-      res.json(data);
-    }
-  });
-
-});
-
-app.put('/api/villains/:villain_id', function (req, res) {
-  Villain.findById( req.params.villain_id, function (err, villain) {
-
-    if (!villain) return res.status(404);
-    villain.loadPower(req.body.superPower);
-    villain.loadData(req.body);
-    villain.save(function(e) {
-      if (e) {
-        res.status(500).send(e)
-      } else {
-        res.json(villain);
-      }
-    })
-  })
-})
-
-app.post('/api/villains', function(req, res){
-  var newVillain = new Villain();
-
-  newVillain.loadData(req.body);
-
-  newVillain.save(function(err, vil) {
-    if (err) {
-      console.log(err);
-    } else {
-      res.json(vil)
-    }
-  });
-})
-
-app.get('/villains/:villain_id', function(req, res){
-  Villain.findById(req.params.villain_id, function(err, data) {
-    if (err) {
-      console.log(err);
-    } else {
-      res.json(data);
-    }
-  })
-});
-
-app.delete('/villains/:villain_id', function(req, res) {
-  Villain.remove({_id: req.params.villain_id}, function(err) {
-    if (err) {
-      console.log(err);
-    } else {
-      res.send("Villain deleted");
-    }
-  })
-});
-
 app.use('/api/superheroes', heroRoutes)
+
+app.use('/api/villains', villainRoutes)
 
 var server = app.listen(3000, function () {
   console.log('server is running');
