@@ -30,7 +30,18 @@
                 <h6>{{hero.universe}}</h6>
                 <h6>{{hero.evil}}</h6>
               </ol>
+              <button type='button' v-on:click="deleteHero(hero._id)">DELETE</button>
           </div>
+            <div class="container">
+              <form class-"form"  v-on:submit-"submitHero">
+                <div class="form-group">
+                  <label>Hero Name:</label>
+                  <input type="text" placeholder="enter hero name" v-model="newName">
+                </div>
+                  <button class="btn btn-success" type="submit">Submit</button>
+              </form>
+
+            </div>
         <!--<a href="/superheroes" class="btn btn-primary">Show me some Superheros.</a>-->
       </div>
     </div>

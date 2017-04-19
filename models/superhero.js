@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var SuperheroSchema = new mongoose.Schema({
-  name: String,
+  name: {required: true, type: String},
   superPowers: { default: [], type: Array},
   universe: String,
   evil: String,

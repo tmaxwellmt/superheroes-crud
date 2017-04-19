@@ -40,3 +40,5 @@ app.use('/api/villains', villainRoutes)
 var server = app.listen(3000, function () {
   console.log('server is running');
 });
+
+module.exports = app;
